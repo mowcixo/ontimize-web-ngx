@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, OnInit, ViewEncapsulation } from '@angular/core';
+import { InputConverter } from '../../decorators/input-converter';
 import { OSharedModule } from '../../shared';
 
 
@@ -12,7 +13,9 @@ export const DEFAULT_INPUTS_O_BUTTON = [
   'icon',
   'svgIcon : svg-icon',
   'iconPosition: icon-position',
-  'image'
+  'image',
+  'disabled',
+  'class'
 ];
 
 @Component({
@@ -39,6 +42,10 @@ export class OButtonComponent implements OnInit {
   svgIcon: string;
   iconPosition: string; // left (default), top, TODO: right, bottom?
   image: string;
+
+  @InputConverter()
+  disabled: boolean = false;
+  class: string;
 
   constructor() {
     this.otype = OButtonComponent.DEFAULT_TYPE;

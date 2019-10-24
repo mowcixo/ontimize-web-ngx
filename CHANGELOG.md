@@ -1,3 +1,6 @@
+## 4.0.8
+* **O_BUTTONS_OPTIONS**: new provider for allowing to configure button variants
+
 ## 4.0.7 (2019-10-04)
 ### Features
 * New components **o-form-layout-dialog-options** and **o-form-layout-tabgroup-options** ([2ad8ae1](https://github.com/OntimizeWeb/ontimize-web-ngx/commit/2ad8ae1))

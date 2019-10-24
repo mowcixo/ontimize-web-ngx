@@ -1,18 +1,26 @@
-<ng-container *ngIf="table.showButtonsText">
-  <button type="button" [disabled]="!enabled" [class.disabled]="!enabled" mat-stroked-button (click)="innerOnClick($event)">
+<!-- <ng-container *ngIf="table.showButtonsText"> -->
+  <!-- <button type="button" [disabled]="!enabled" [class.disabled]="!enabled" mat-stroked-button (click)="innerOnClick($event)">
     <mat-icon *ngIf="isIconPositionLeft() && svgIcon !== undefined" [svgIcon]="svgIcon"></mat-icon>
     <mat-icon *ngIf="isIconPositionLeft() && svgIcon === undefined">{{ icon }}</mat-icon>
     <span>{{ olabel | oTranslate }}</span>
     <mat-icon *ngIf="!isIconPositionLeft() && svgIcon !== undefined" [svgIcon]="svgIcon"></mat-icon>
     <mat-icon *ngIf="!isIconPositionLeft() && svgIcon === undefined">{{ icon }}</mat-icon>
-  </button>
-</ng-container>
+  </button> -->
 
-<ng-container *ngIf="!table.showButtonsText">
-  <button type="button" [disabled]="!enabled" [class.disabled]="!enabled" mat-icon-button (click)="innerOnClick($event)">
+  <o-button [type]="getButtonType()" svg-icon="ontimize:arrow_back" *ngIf="svgIcon !== undefined" [svg-icon]="svgIcon"
+    (click)="innerOnClick($event)" [disabled]="!enabled" [icon-position]="iconPosition" [label]="olabel">
+  </o-button>
+  <o-button [type]="getButtonType()" svg-icon="ontimize:arrow_back" *ngIf="svgIcon === undefined" [icon]="icon"
+    (click)="innerOnClick($event)" [icon-position]="iconPosition" [label]="olabel">
+  </o-button>
+<!-- </ng-container> -->
+
+<!-- <ng-container *ngIf="!table.showButtonsText">
+  <button type="button" [disabled]="!enabled" [class.disabled]="!enabled" mat-icon-button
+    (click)="innerOnClick($event)">
     <mat-icon *ngIf="isIconPositionLeft() && svgIcon !== undefined" [svgIcon]="svgIcon"></mat-icon>
     <mat-icon *ngIf="isIconPositionLeft() && svgIcon === undefined">{{ icon }}</mat-icon>
     <mat-icon *ngIf="!isIconPositionLeft() && svgIcon !== undefined" [svgIcon]="svgIcon"></mat-icon>
     <mat-icon *ngIf="!isIconPositionLeft() && svgIcon === undefined">{{ icon }}</mat-icon>
   </button>
-</ng-container>
+</ng-container> -->

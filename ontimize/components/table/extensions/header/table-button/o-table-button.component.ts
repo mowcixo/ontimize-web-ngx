@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, Inject, Injector, OnInit, ViewEncapsulation } from '@angular/core';
-
+import { OButtonOptions, O_BUTTONS_OPTIONS } from '../../../../../config/app-config';
 import { InputConverter } from '../../../../../decorators';
 import { Codes, Util } from '../../../../../utils';
 import { OTableComponent } from '../../../o-table.component';
+
 
 export const DEFAULT_INPUTS_O_TABLE_BUTTON = [
   'oattr: attr',
@@ -44,12 +45,14 @@ export class OTableButtonComponent implements OnInit {
   public svgIcon: string;
   public olabel: string;
   public iconPosition: string;
-
+  public oButtonsOptions: OButtonOptions;
   constructor(
     protected injector: Injector,
     public elRef: ElementRef,
     @Inject(forwardRef(() => OTableComponent)) protected _table: OTableComponent
-  ) { }
+  ) {
+    this.oButtonsOptions = this.injector.get(O_BUTTONS_OPTIONS);
+  }
 
   public ngOnInit(): void {
     if (!Util.isDefined(this.icon) && !Util.isDefined(this.svgIcon)) {
@@ -71,4 +74,24 @@ export class OTableButtonComponent implements OnInit {
     return this._table;
   }
 
+  getButtonType() {
+    switch (this.oButtonsOptions.variant) {
+      case 'mat-button':
+        return 'BASIC';
+      case 'mat-raised-button':
+        return 'RAISED';
+      case 'mat-flat-button':
+        return 'FLAT';
+      case 'mat-icon-button':
+        return 'ICON';
+      case 'mat-fab':
+        return 'FAB';
+      case 'mat-mini-fab':
+        return 'FAB-MINI';
+      default:
+      case 'mat-stroked-button':
+        return 'STROKED';
+    }
+
+  }
 }

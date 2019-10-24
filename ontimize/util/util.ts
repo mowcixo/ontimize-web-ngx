@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 import { IFormDataComponent } from '../components/o-form-data-component.class';
+import { OButtonOptions } from '../config/app-config';
 import { Base64 } from './base64';
 import { Codes } from './codes';
 
@@ -354,5 +355,26 @@ export class Util {
       });
     });
     return difference;
+  }
+
+  static getTypeButton(buttonsOptions:OButtonOptions):string{
+    switch (buttonsOptions.variant) {
+      case 'mat-button':
+        return 'BASIC';
+      case 'mat-raised-button':
+        return 'RAISED';
+      case 'mat-flat-button':
+        return 'FLAT';
+      case 'mat-icon-button':
+        return 'ICON';
+      case 'mat-fab':
+        return 'FAB';
+      case 'mat-mini-fab':
+        return 'FAB-MINI';
+      default:
+      case 'mat-stroked-button':
+        return 'STROKED';
+    }
+
   }
 }

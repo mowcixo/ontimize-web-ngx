@@ -1,8 +1,8 @@
 import { InjectionToken } from '@angular/core';
-
 import { MenuRootItem } from '../services';
 import { ORemoteConfiguration } from '../types';
 import { Util } from '../utils';
+
 
 const DEFAULT_LOCAL_STORAGE_KEY = undefined;
 const DEFAULT_CONFIG: Config = {
@@ -17,6 +17,14 @@ export type OInputsColor = 'primary' | 'accent';
 export interface OInputsOptions {
   iconColor?: OInputsColor;
 }
+
+
+export const O_BUTTONS_OPTIONS = new InjectionToken<OButtonOptions>('o-button-options');
+
+export interface OButtonOptions {
+  variant?: OButtonVariant;
+}
+export type OButtonVariant = 'mat-stroked-button' | 'mat-button' | 'mat-raised-button' | 'mat-flat-button' | 'mat-icon-button' | 'mat-fab' | 'mat-mini-fab';
 
 export const APP_CONFIG = new InjectionToken<Config>('app.config');
 

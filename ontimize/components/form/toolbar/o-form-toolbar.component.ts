@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, forwardRef, Inject, Injector, NgModule, OnDestroy, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { OButtonOptions, O_BUTTONS_OPTIONS } from '../../../config/app-config';
 import { InputConverter } from '../../../decorators';
 import { DialogService, NavigationService, OPermissions, SnackBarService } from '../../../services';
 import { OSharedModule } from '../../../shared';
 import { PermissionsUtils } from '../../../util/permissions';
 import { Util } from '../../../util/util';
+import { OButtonModule } from '../../button/o-button.component';
 import { OFormNavigationComponent } from '../navigation/o-form-navigation.component';
 import { OFormComponent } from '../o-form.component';
 
@@ -60,6 +62,8 @@ export class OFormToolbarComponent implements OnInit, OnDestroy {
   public isSaveBtnEnabled: Observable<boolean>;
   public isEditBtnEnabled: Observable<boolean>;
   public existsChangesToSave: Observable<boolean>;
+
+  public oButtonsOptions: OButtonOptions;
 
   get changesToSave(): boolean {
     return this._changesToSave;
@@ -127,6 +131,7 @@ export class OFormToolbarComponent implements OnInit, OnDestroy {
     this._dialogService = this.injector.get(DialogService);
     this._navigationService = this.injector.get(NavigationService);
     this.snackBarService = this.injector.get(SnackBarService);
+    this.oButtonsOptions = this.injector.get(O_BUTTONS_OPTIONS);
   }
 
   public ngOnInit(): void {
@@ -184,6 +189,27 @@ export class OFormToolbarComponent implements OnInit, OnDestroy {
     this.initialMode = false;
     this.insertMode = false;
     this.editMode = true;
+  }
+
+  public getButtonType(): string {
+    switch (this.oButtonsOptions.variant) {
+      case 'mat-button':
+        return 'BASIC';
+      case 'mat-raised-button':
+        return 'RAISED';
+      case 'mat-flat-button':
+        return 'FLAT';
+      case 'mat-icon-button':
+        return 'ICON';
+      case 'mat-fab':
+        return 'FAB';
+      case 'mat-mini-fab':
+        return 'FAB-MINI';
+      default:
+      case 'mat-stroked-button':
+        return 'STROKED';
+    }
+
   }
 
   public onCloseDetail(): void {
@@ -408,7 +434,7 @@ export class OFormToolbarComponent implements OnInit, OnDestroy {
 
 @NgModule({
   declarations: [OFormNavigationComponent, OFormToolbarComponent],
-  imports: [CommonModule, OSharedModule],
+  imports: [CommonModule, OSharedModule, OButtonModule],
   exports: [OFormNavigationComponent, OFormToolbarComponent]
 })
 export class OFormToolbarModule { }

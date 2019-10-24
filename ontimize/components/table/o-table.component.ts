@@ -7,6 +7,7 @@ import { MatCheckboxChange, MatDialog, MatMenu, MatPaginator, MatPaginatorIntl, 
 import { DndModule } from '@churchs19/ng2-dnd';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
+import { OButtonModule } from '../../components';
 import { BooleanConverter, InputConverter } from '../../decorators/input-converter';
 import { OntimizeService, OPermissions, OTableMenuPermissions, OTablePermissions, SnackBarService } from '../../services';
 import { dataServiceFactory } from '../../services/data-service.provider';
@@ -2444,7 +2445,8 @@ export class OTableComponent extends OServiceComponent implements OnInit, OnDest
     OContextMenuModule,
     ObserversModule,
     OMatSortModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    OButtonModule
   ],
   exports: [
     OTableComponent,
