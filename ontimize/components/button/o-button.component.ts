@@ -15,12 +15,12 @@ export const DEFAULT_INPUTS_O_BUTTON = [
   'iconPosition: icon-position',
   'image',
   'disabled',
-  'class'
+  'cssClass: css-class'
 ];
 
 @Component({
   moduleId: module.id,
-  selector: 'o-button',
+  selector: 'o-button, [o-button]',
   inputs: DEFAULT_INPUTS_O_BUTTON,
   templateUrl: './o-button.component.html',
   styleUrls: ['./o-button.component.scss'],
@@ -45,7 +45,7 @@ export class OButtonComponent implements OnInit {
 
   @InputConverter()
   disabled: boolean = false;
-  class: string;
+  cssClass: string;
 
   constructor() {
     this.otype = OButtonComponent.DEFAULT_TYPE;
@@ -58,7 +58,7 @@ export class OButtonComponent implements OnInit {
   }
 
   get needsIconButtonClass(): boolean {
-    return this.icon !== undefined && (this.olabel === undefined || this.olabel === '');
+    return (this.icon !== undefined || this.svgIcon !== undefined) && (this.olabel === undefined || this.olabel === '');
   }
 
   isFab(): boolean {
