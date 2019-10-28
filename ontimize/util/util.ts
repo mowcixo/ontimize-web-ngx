@@ -357,7 +357,7 @@ export class Util {
     return difference;
   }
 
-  static getTypeButton(buttonsOptions:OButtonOptions):string{
+  static getTypeButton(buttonsOptions: OButtonOptions): string {
     switch (buttonsOptions.variant) {
       case 'mat-button':
         return 'BASIC';

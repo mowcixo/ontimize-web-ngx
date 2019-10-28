@@ -9,8 +9,8 @@
 </div>
 <mat-dialog-actions align="end">
   <span fxFlex></span>
-  <button type="button" *ngIf="twoOptions" mat-stroked-button class="mat-primary"
-    mat-dialog-close>{{ cancelButtonText | oTranslate | uppercase }}</button>
-  <button type="button" mat-stroked-button class="mat-primary"
-    (click)="onOkClick($event)">{{ okButtonText | oTranslate | uppercase }}</button>
+  <span o-button [type]="getTypeButton()" *ngIf="twoOptions" css-class="mat-primary" mat-dialog-close
+    [label]="cancelButtonText | oTranslate | uppercase"></span>
+  <span o-button css-class="mat-primary" [type]="getTypeButton()" (click)="onOkClick($event)"
+    [label]="okButtonText | oTranslate | uppercase"></span>
 </mat-dialog-actions>

@@ -1,9 +1,13 @@
-import { Component, NgModule, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Injector, NgModule, ViewEncapsulation } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { OButtonOptions, O_BUTTONS_OPTIONS } from '../../config/app-config';
 import { OTranslateModule } from '../../pipes/o-translate.pipe';
 import { OSharedModule } from '../../shared';
+import { Util } from '../../util/util';
+import { OButtonModule } from '../button/o-button.component';
 import { ODialogConfig } from './o-dialog.config';
+
 
 @Component({
   moduleId: module.id,
@@ -16,6 +20,7 @@ import { ODialogConfig } from './o-dialog.config';
   }
 })
 export class ODialogComponent {
+  public oButtonsOptions: OButtonOptions;
 
   protected static DEFAULT_OK_BUTTON_TEXT = 'OK';
   protected static DEFAULT_CANCEL_BUTTON_TEXT = 'CANCEL';
@@ -30,7 +35,8 @@ export class ODialogComponent {
   protected _alertType: string;
 
   constructor(
-    public dialogRef: MatDialogRef<ODialogComponent>) {
+    public dialogRef: MatDialogRef<ODialogComponent>, protected injector: Injector) {
+    this.oButtonsOptions = this.injector.get(O_BUTTONS_OPTIONS);
   }
 
   onOkClick(evt: any) {
@@ -176,11 +182,15 @@ export class ODialogComponent {
   set useIcon(val: boolean) {
     this._useIcon = val;
   }
+
+  getTypeButton():string {
+    return Util.getTypeButton(this.oButtonsOptions);
+  }
 }
 
 @NgModule({
   declarations: [ODialogComponent],
-  imports: [CommonModule, OSharedModule, OTranslateModule],
+  imports: [CommonModule, OSharedModule, OTranslateModule, OButtonModule],
   exports: [ODialogComponent, CommonModule]
 })
 export class ODialogModule {

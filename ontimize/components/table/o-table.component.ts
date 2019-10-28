@@ -8,6 +8,7 @@ import { DndModule } from '@churchs19/ng2-dnd';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
 import { OButtonModule } from '../../components';
+import { OButtonOptions, O_BUTTONS_OPTIONS } from '../../config/app-config';
 import { BooleanConverter, InputConverter } from '../../decorators/input-converter';
 import { OntimizeService, OPermissions, OTableMenuPermissions, OTablePermissions, SnackBarService } from '../../services';
 import { dataServiceFactory } from '../../services/data-service.provider';
@@ -689,6 +690,8 @@ export class OTableComponent extends OServiceComponent implements OnInit, OnDest
   @ViewChild(OTableExpandedFooter)
   oTableExpandedFooter: OTableExpandedFooter;
 
+  public oButtonsOptions: OButtonOptions;
+
   constructor(
     injector: Injector,
     elRef: ElementRef,
@@ -703,6 +706,7 @@ export class OTableComponent extends OServiceComponent implements OnInit, OnDest
       // Do nothing due to not always is contained on tab.
     }
     this.snackBarService = this.injector.get(SnackBarService);
+    this.oButtonsOptions = this.injector.get(O_BUTTONS_OPTIONS);
     this.oTableStorage = new OTableStorage(this);
   }
 

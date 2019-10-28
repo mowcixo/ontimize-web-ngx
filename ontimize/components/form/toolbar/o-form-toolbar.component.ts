@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, forwardRef, Inject, Injector, NgModule, OnDestroy, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { OButtonModule } from '../../../components';
 import { OButtonOptions, O_BUTTONS_OPTIONS } from '../../../config/app-config';
 import { InputConverter } from '../../../decorators';
 import { DialogService, NavigationService, OPermissions, SnackBarService } from '../../../services';
 import { OSharedModule } from '../../../shared';
 import { PermissionsUtils } from '../../../util/permissions';
 import { Util } from '../../../util/util';
-import { OButtonModule } from '../../button/o-button.component';
 import { OFormNavigationComponent } from '../navigation/o-form-navigation.component';
 import { OFormComponent } from '../o-form.component';
 

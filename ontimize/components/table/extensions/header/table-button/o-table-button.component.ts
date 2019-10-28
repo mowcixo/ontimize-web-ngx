@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, Inject, Injector, OnInit, ViewEncapsulation } from '@angular/core';
-import { OButtonOptions, O_BUTTONS_OPTIONS } from '../../../../../config/app-config';
 import { InputConverter } from '../../../../../decorators';
 import { Codes, Util } from '../../../../../utils';
 import { OTableComponent } from '../../../o-table.component';
@@ -45,13 +44,11 @@ export class OTableButtonComponent implements OnInit {
   public svgIcon: string;
   public olabel: string;
   public iconPosition: string;
-  public oButtonsOptions: OButtonOptions;
   constructor(
     protected injector: Injector,
     public elRef: ElementRef,
     @Inject(forwardRef(() => OTableComponent)) protected _table: OTableComponent
   ) {
-    this.oButtonsOptions = this.injector.get(O_BUTTONS_OPTIONS);
   }
 
   public ngOnInit(): void {
@@ -75,7 +72,7 @@ export class OTableButtonComponent implements OnInit {
   }
 
   getButtonType() {
-    switch (this.oButtonsOptions.variant) {
+    switch (this.table.oButtonsOptions.variant) {
       case 'mat-button':
         return 'BASIC';
       case 'mat-raised-button':
