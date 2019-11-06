@@ -1,4 +1,4 @@
-import { AfterViewInit, forwardRef, Inject, ElementRef, OnDestroy, Renderer2, Directive } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, forwardRef, Inject, OnDestroy, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OTableComponent } from '../../o-table.component';
 
@@ -26,9 +26,12 @@ export class OTableRowDirective implements AfterViewInit, OnDestroy {
   }
 
   registerResize() {
-    if (this.table.horizontalScroll) {
-      const self = this;
-      this.table.onUpdateScrolledState.subscribe(scrolled => {
+    console.log('o-table-row-directive', this.table.horizontalScroll);
+
+    const self = this;
+    this.table.onUpdateScrolledState.subscribe(scrolled => {
+      self.table.refreshColumnsWidth();
+      if (this.table.horizontalScroll) {
         setTimeout(function () {
           if (scrolled) {
             self.calculateRowWidth();
@@ -36,8 +39,9 @@ export class OTableRowDirective implements AfterViewInit, OnDestroy {
             self.setRowWidth(undefined);
           }
         }, 0);
-      });
-    }
+      }
+    });
+
   }
 
   calculateRowWidth() {
@@ -50,7 +54,8 @@ export class OTableRowDirective implements AfterViewInit, OnDestroy {
     let totalWidth: number = 0;
     try {
       this.elementRef.nativeElement.childNodes.forEach(element => {
-        if (element && element.tagName && element.tagName.toLowerCase() === 'mat-cell') {
+        if (element && element.tagName &&
+          (element.tagName.toLowerCase() === 'mat-cell' || element.classList.indexOf('mat-cell') > -1)) {
           totalWidth += element.clientWidth;
         }
       });

@@ -637,6 +637,10 @@ export class OTableComponent extends OServiceComponent implements OnInit, OnDest
 
   @ViewChild('tableBody')
   protected tableBodyEl: ElementRef;
+
+  @ViewChild('tableScrolled')
+  protected tableScrolled: ElementRef;
+  
   @ViewChild('tableHeader', { read: ElementRef })
   tableHeaderEl: ElementRef;
   @ViewChild('tableToolbar', { read: ElementRef })
@@ -655,21 +659,26 @@ export class OTableComponent extends OServiceComponent implements OnInit, OnDest
 
   @HostListener('window:resize', ['$event'])
   updateScrolledState(): void {
-    if (this.horizontalScroll) {
+
+   
       const self = this;
       setTimeout(() => {
-        const bodyWidth = self.tableBodyEl.nativeElement.clientWidth;
-        const scrollWidth = self.tableBodyEl.nativeElement.scrollWidth;
+        const bodyWidth = self.tableScrolled.nativeElement.clientWidth;
+        const scrollWidth = self.tableScrolled.nativeElement.scrollWidth;
         const previousState = self.horizontalScrolled;
         self.horizontalScrolled = scrollWidth > bodyWidth;
-        if (previousState !== self.horizontalScrolled) {
+
+        if (self.horizontalScroll && previousState !== self.horizontalScrolled) {
+          self.onUpdateScrolledState.emit(self.horizontalScrolled);
+        }else if (!self.horizontalScroll && self.horizontalScrolled) {
           self.onUpdateScrolledState.emit(self.horizontalScrolled);
         }
       }, 0);
-    }
-    // if (this.resizable) {
-
+   // }
+    // if (previousState !== this.horizontalScrolled) {
+    //   this.onUpdateScrolledState.emit(this.horizontalScrolled);
     // }
+   
   }
 
   protected permissions: OTablePermissions;
@@ -2405,18 +2414,30 @@ export class OTableComponent extends OServiceComponent implements OnInit, OnDest
   }
 
   refreshColumnsWidth() {
+
+    const self = this;
     this.oTableOptions.columns.filter(c => c.visible).forEach((c) => {
-      c.DOMWidth = undefined;
+      if (!self.horizontalScroll) {
+       // c.width = undefined;
+        c.DOMWidth = undefined;
+      }
+   
     });
     this.cd.detectChanges();
     setTimeout(() => {
-      this.getColumnsWidthFromDOM();
+      if (self.horizontalScroll) {
+        this.getColumnsWidthFromDOM();
+      }
       this.oTableOptions.columns.filter(c => c.visible).forEach(c => {
         if (Util.isDefined(c.definition) && Util.isDefined(c.definition.width)) {
           c.width = c.definition.width;
         }
+
         c.getRenderWidth();
       });
+      if (!self.horizontalScroll) {
+        this.getColumnsWidthFromDOM();
+      }
       this.cd.detectChanges();
     }, 0);
   }

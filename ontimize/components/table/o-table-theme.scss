@@ -97,7 +97,7 @@
       }
     }
 
-    .o-table-body.horizontal-scroll {
+    .o-table-overflow.horizontal-scroll {
       &::-webkit-scrollbar-thumb {
         background-color: mat-color($primary, 200, 0.5);
       }

@@ -27,9 +27,10 @@ $o_table_row_padding: 24px;
     .o-table-body {
       display: flex;
       flex: 1 1 auto;
+      overflow: hidden;
 
       .o-table-overflow {
-        overflow-y: auto;
+        overflow-x: auto;
       }
 
       thead .mat-header-row th:last-child .o-table-column-resizer {
@@ -47,7 +48,7 @@ $o_table_row_padding: 24px;
     }
 
     position: relative;
-    margin: 0 .5%;
+    //margin: 0 .5%;
 
     .toolbar {
       height: 40px;
@@ -64,7 +65,7 @@ $o_table_row_padding: 24px;
 
     }
 
-    .o-table-body {
+    .o-table-overflow{
       &:not(.horizontal-scroll) {
         overflow-x: hidden;
       }

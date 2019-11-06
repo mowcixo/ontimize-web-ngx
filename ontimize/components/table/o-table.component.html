@@ -22,9 +22,9 @@
     </div>
   </div>
 
-  <div #tableBody class="o-table-body o-scroll" [class.horizontal-scroll]="horizontalScroll"
+  <div #tableBody class="o-table-body">
+    <div #tableScrolled class="o-table-overflow o-scroll" [class.horizontal-scroll]="horizontalScroll"
     [class.scrolled]="horizontalScrolled">
-    <div class="o-table-overflow o-scroll">
       <table mat-table #table [trackBy]="getTrackByFunction()" [dataSource]="dataSource" oMatSort
         [ngClass]="rowHeightObservable | async" (scroll)="onTableScroll($event)"
         (cdkObserveContent)="projectContentChanged()" oTableExpandedFooter>
