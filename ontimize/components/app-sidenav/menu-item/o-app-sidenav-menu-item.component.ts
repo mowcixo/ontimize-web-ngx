@@ -1,17 +1,43 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Injector, NgModule, OnDestroy, ViewEncapsulation, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Injector,
+  NgModule,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Util } from '../../../utils';
-import { OSharedModule } from '../../../shared';
 import { InputConverter } from '../../../decorators';
 import { OAppLayoutComponent } from '../../../layouts';
+import {
+  DialogService,
+  LoginService,
+  OPermissions,
+  OTranslateService,
+  OUserInfoService,
+  PermissionsService
+} from '../../../services';
+import {
+  MenuItemAction,
+  MenuItemLocale,
+  MenuItemLogout,
+  MenuItemRoute,
+  MenuItemUserInfo,
+  MenuRootItem
+} from '../../../services/app-menu.service';
+import { OSharedModule } from '../../../shared';
 import { PermissionsUtils } from '../../../util/permissions';
-import { OAppSidenavComponent } from '../o-app-sidenav.component';
-import { DialogService, LoginService, OTranslateService, OPermissions, PermissionsService, OUserInfoService } from '../../../services';
+import { Util } from '../../../utils';
 import { OLanguageSelectorModule } from '../../language-selector/o-language-selector.component';
-import { MenuItemAction, MenuItemLocale, MenuItemLogout, MenuItemRoute, MenuItemUserInfo, MenuRootItem } from '../../../services/app-menu.service';
+import { OAppSidenavComponent } from '../o-app-sidenav.component';
 
 export const DEFAULT_INPUTS_O_APP_SIDENAV_MENU_ITEM = [
   'menuItem : menu-item',
@@ -235,6 +261,7 @@ export class OAppSidenavMenuItemComponent implements OnInit, AfterViewInit, OnDe
   }
 
   isUserInfoItem(): boolean {
+    console.log(this.menuItemType);
     return this.menuItemType === 'user-info';
   }
 
