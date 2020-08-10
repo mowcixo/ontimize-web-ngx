@@ -1,15 +1,27 @@
-import { AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Injector, NgModule, OnDestroy, ViewEncapsulation, OnInit } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Injector,
+  NgModule,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Util } from '../../../utils';
-import { OSharedModule } from '../../../shared';
 import { InputConverter } from '../../../decorators';
+import { AppMenuService, MenuGroup, OPermissions, OTranslateService, PermissionsService } from '../../../services';
+import { OSharedModule } from '../../../shared';
 import { PermissionsUtils } from '../../../util/permissions';
-import { OAppSidenavComponent } from '../o-app-sidenav.component';
-import { AppMenuService, MenuGroup, OTranslateService, PermissionsService, OPermissions } from '../../../services';
+import { Util } from '../../../utils';
 import { OAppSidenavMenuItemModule } from '../menu-item/o-app-sidenav-menu-item.component';
+import { OAppSidenavComponent } from '../o-app-sidenav.component';
 
 export const DEFAULT_INPUTS_O_APP_SIDENAV_MENU_GROUP = [
   'menuGroup : menu-group',

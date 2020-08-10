@@ -1,18 +1,33 @@
-import { AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostListener, Injector, NgModule, OnDestroy, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Injector,
+  NgModule,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material';
 import { Router, RouterModule } from '@angular/router';
-import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 
-import { Util } from '../../util/util';
-import { OSharedModule } from '../../shared';
 import { InputConverter } from '../../decorators';
-import { OAppSidenavImageModule } from './image/o-app-sidenav-image.component';
-import { OAppSidenavMenuItemModule } from './menu-item/o-app-sidenav-menu-item.component';
-import { OAppSidenavMenuGroupModule } from './menu-group/o-app-sidenav-menu-group.component';
 import { OAppLayoutComponent, OAppLayoutMode, OSidenavMode } from '../../layouts/app-layout/o-app-layout.component';
-import { AppMenuService, MenuRootItem, MenuItemUserInfo, MenuGroup, OUserInfoService, UserInfo } from '../../services';
+import { AppMenuService, MenuGroup, MenuItemUserInfo, MenuRootItem, OUserInfoService, UserInfo } from '../../services';
+import { OSharedModule } from '../../shared';
+import { Util } from '../../util/util';
+import { OLanguageSelectorModule } from '../language-selector/o-language-selector.component';
+import { OAppSidenavImageModule } from './image/o-app-sidenav-image.component';
+import { OAppSidenavMenuGroupModule } from './menu-group/o-app-sidenav-menu-group.component';
+import { OAppSidenavMenuItemModule } from './menu-item/o-app-sidenav-menu-item.component';
 
 export const DEFAULT_INPUTS_O_APP_SIDENAV = [
   'opened',
@@ -66,6 +81,7 @@ export class OAppSidenavComponent implements OnInit, OnDestroy, AfterViewInit {
   protected oUserInfoService: OUserInfoService;
   protected userInfoSubscription: Subscription;
   protected userInfo: UserInfo;
+  protected oAppLayoutComponent: OAppLayoutComponent;
 
   protected mediaWatch: Subscription;
   protected manuallyClosed: boolean = false;
@@ -80,6 +96,7 @@ export class OAppSidenavComponent implements OnInit, OnDestroy, AfterViewInit {
     this.appMenuService = this.injector.get(AppMenuService);
     this.menuRootArray = this.appMenuService.getMenuRoots();
     this.oUserInfoService = this.injector.get(OUserInfoService);
+    this.oAppLayoutComponent = this.injector.get(OAppLayoutComponent);
     const self = this;
     this.mediaWatch = this.media.subscribe((change: MediaChange) => {
       if (self.isScreenSmall() && self.sidenav) {
@@ -112,6 +129,14 @@ export class OAppSidenavComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
     this.refreshMenuRoots();
+  }
+
+  isLanguageSelectorEnabled(): boolean {
+    return this.oAppLayoutComponent.showLanguageSelector && !this.oAppLayoutComponent.showUserInfo;
+  }
+
+  get useFlagIcons(): boolean {
+    return this.oAppLayoutComponent && this.oAppLayoutComponent.useFlagIcons;
   }
 
   get layoutMode(): OAppLayoutMode {
@@ -231,7 +256,7 @@ export class OAppSidenavComponent implements OnInit, OnDestroy, AfterViewInit {
 }
 
 @NgModule({
-  imports: [CommonModule, OAppSidenavMenuGroupModule, OAppSidenavImageModule, OAppSidenavMenuItemModule, OSharedModule, RouterModule],
+  imports: [CommonModule, OAppSidenavMenuGroupModule, OAppSidenavImageModule, OAppSidenavMenuItemModule, OLanguageSelectorModule, OSharedModule, RouterModule],
   declarations: [OAppSidenavComponent],
   exports: [OAppSidenavComponent]
 })

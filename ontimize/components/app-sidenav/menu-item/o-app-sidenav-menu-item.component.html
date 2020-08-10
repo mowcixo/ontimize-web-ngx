@@ -21,10 +21,8 @@
       <div class="o-user-info-image" fxFlexFill></div>
       <div class="o-user-info-item" fxLayout="row" fxLayoutAlign="space-between center" fxFlexFill>
         <div class="o-user-info-name">{{ menuItem.user }} </div>
+        <o-language-selector *ngIf="isLanguageSelectorItem()" [use-flag-icons]="useFlagIcons"></o-language-selector>
       </div>
-    </div>
-    <div fxLayout="column" fxLayoutAlign="center center" class="o-user-info-menu-item">
-      <o-language-selector [use-flag-icons]="useFlagIcons"></o-language-selector>
     </div>
   </li>
 </ng-container>

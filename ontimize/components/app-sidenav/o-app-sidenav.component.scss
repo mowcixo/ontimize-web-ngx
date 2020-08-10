@@ -16,6 +16,10 @@ $transition-duration: 500ms;
     }
   }
 
+  .o-language-selector.single-lang-selector {
+    color: white;
+  }
+
   .o-app-sidenav-menu-group,
   .o-app-sidenav-menu-item {
     &[disabled=true] {

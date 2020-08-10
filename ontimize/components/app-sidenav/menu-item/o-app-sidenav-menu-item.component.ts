@@ -261,12 +261,15 @@ export class OAppSidenavMenuItemComponent implements OnInit, AfterViewInit, OnDe
   }
 
   isUserInfoItem(): boolean {
-    console.log(this.menuItemType);
     return this.menuItemType === 'user-info';
   }
 
   isDefaultItem(): boolean {
     return this.menuItemType === 'default';
+  }
+
+  isLanguageSelectorItem(): boolean {
+    return this.oAppLayoutComponent.showLanguageSelector;
   }
 
   get useFlagIcons(): boolean {

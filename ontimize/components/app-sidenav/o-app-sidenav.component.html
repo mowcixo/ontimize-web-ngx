@@ -11,8 +11,9 @@
 
     <o-app-sidenav-image [opened-src]="openedSidenavImg" [closed-src]="closedSidenavImg"> </o-app-sidenav-image>
 
-    <ng-content select="o-app-layout-sidenav-projection-start"></ng-content>
+    <o-language-selector *ngIf="isLanguageSelectorEnabled()" [use-flag-icons]="useFlagIcons" class="single-lang-selector"></o-language-selector>
 
+    <ng-content select="o-app-layout-sidenav-projection-start"></ng-content>
     <nav *ngFor="let menuRootItem of menuRootArray">
 
       <ul *ngIf="appMenuService.getMenuItemType(menuRootItem) !== 'group'">
